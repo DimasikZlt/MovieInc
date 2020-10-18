@@ -9,8 +9,9 @@ class MovieHall:
         self.number = number
 
     @classmethod
-    def create_movie_hall(cls, movie_halls_schema):
-        seats = []
-        for row in movie_halls_schema['rows']:
-            seats.append([Seat(index) for index in row])
-        return MovieHall(int(movie_halls_schema['number']), seats)
+    def create_movie_hall(cls, movie_halls_schema: dict):
+        seats = [
+            [Seat(index) if index else None for index in row]
+            for row in movie_halls_schema['rows']
+        ]
+        return cls(int(movie_halls_schema['number']), seats)
